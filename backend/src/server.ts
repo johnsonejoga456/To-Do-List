@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import todoRoutes from './routes/todoRoutes';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 // Routes
 app.use('/api', todoRoutes);
@@ -21,15 +23,11 @@ app.get('/', (req: Request, res: Response) => {
 
 // Database Connection
 mongoose
-  .connect(process.env.MONGO_URI as string, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  } as mongoose.ConnectOptions)
-  .then(() => {
-    console.log('Connected to MongoDB');
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-  })
-  .catch((error) => {
-    console.error('MongoDB connection error:', error.message);
-    process.exit(1);
-  });
+.connect(process.env.MONGODB_URI as string)
+.then(() => {
+  app.listen(PORT, () => console.log (`server running on port ${PORT}`));
+  console.log('Connected to database');
+})
+.catch((error) => {
+  console.error ('MONGODB connection error:', error.message);
+})
