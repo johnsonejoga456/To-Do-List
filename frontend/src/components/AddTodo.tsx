@@ -1,38 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Todo } from "../types/todo";
 
-interface AddTodoProps {
-  onAdd: (title: string) => void;
+interface Props {
+  onAdd: (todo: Todo) => void;
 }
 
-const AddTodo: React.FC<AddTodoProps> = ({ onAdd }) => {
-  const [title, setTitle] = useState('');
+const AddTodo: React.FC<Props> = ({ onAdd }) => {
+  const [newTodo, setNewTodo] = useState({ title: "", description: "" });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (title.trim()) {
-      onAdd(title.trim());
-      setTitle('');
+    if (newTodo.title.trim()) {
+      onAdd(newTodo);
+      setNewTodo({ title: "", description: "" });
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="input-group mb-3">
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Add a new task..."
-        className="form-control"
-        required
-      />
-      <div className="input-group-append">
-        <button
-          type="submit"
-          className="btn btn-primary"
-        >
-          Add
-        </button>
+    <form onSubmit={handleSubmit} className="mb-3">
+      <div className="mb-3">
+        <input
+          type="text"
+          placeholder="Title"
+          value={newTodo.title}
+          onChange={(e) => setNewTodo({ ...newTodo, title: e.target.value })}
+          className="form-control"
+          required
+        />
       </div>
+      <div className="mb-3">
+        <textarea
+          placeholder="Description"
+          value={newTodo.description}
+          onChange={(e) => setNewTodo({ ...newTodo, description: e.target.value })}
+          className="form-control"
+        />
+      </div>
+      <button type="submit" className="btn btn-success w-100">
+        Add To-Do
+      </button>
     </form>
   );
 };

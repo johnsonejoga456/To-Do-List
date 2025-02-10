@@ -1,35 +1,37 @@
-import React from 'react';
+import React from "react";
+import { Todo } from "../types/todo";
 
-interface TodoItemProps {
-  id: string;
-  title: string;
-  completed: boolean;
+interface Props {
+  todo: Todo;
   onDelete: (id: string) => void;
-  onToggle: (id: string) => void;
+  onToggleComplete: (todo: Todo) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ id, title, completed, onDelete, onToggle }) => {
+const TodoItem: React.FC<Props> = ({ todo, onDelete, onToggleComplete }) => {
   return (
-    <div className="d-flex align-items-center justify-content-between p-2 border-bottom">
-      <div className="form-check">
-        <input
-          type="checkbox"
-          checked={completed}
-          onChange={() => onToggle(id)}
-          className="form-check-input"
-        />
-        <label
-          className={`form-check-label ${completed ? 'text-decoration-line-through text-muted' : ''}`}
-        >
-          {title}
-        </label>
+    <div className="card my-2">
+      <div className="card-body d-flex justify-content-between align-items-center">
+        <div>
+          <h5 className={`card-title ${todo.isCompleted ? "text-decoration-line-through text-muted" : ""}`}>
+            {todo.title}
+          </h5>
+          <p className="card-text text-muted">{todo.description}</p>
+        </div>
+        <div className="btn-group">
+          <button
+            onClick={() => onToggleComplete(todo)}
+            className="btn btn-sm btn-secondary"
+          >
+            {todo.isCompleted ? "Undo" : "Complete"}
+          </button>
+          <button
+            onClick={() => onDelete(todo._id!)}
+            className="btn btn-sm btn-danger"
+          >
+            Delete
+          </button>
+        </div>
       </div>
-      <button
-        onClick={() => onDelete(id)}
-        className="btn btn-danger btn-sm"
-      >
-        Delete
-      </button>
     </div>
   );
 };

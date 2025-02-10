@@ -11,7 +11,10 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000", // Allow frontend requests
+  credentials: true
+}));
 
 // Routes
 app.use('/api', todoRoutes);
@@ -22,12 +25,18 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // Database Connection
+if (!process.env.MONGODB_URI) {
+  console.error("MONGODB_URI is not defined in .env file");
+  process.exit(1);
+}
+
 mongoose
-.connect(process.env.MONGODB_URI as string)
-.then(() => {
-  app.listen(PORT, () => console.log (`server running on port ${PORT}`));
-  console.log('Connected to database');
-})
-.catch((error) => {
-  console.error ('MONGODB connection error:', error.message);
-})
+  .connect(process.env.MONGODB_URI as string)
+  .then(() => {
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    console.log('Connected to database');
+  })
+  .catch((error) => {
+    console.error('MONGODB connection error:', error.message);
+    process.exit(1);
+  });
