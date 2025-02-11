@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Todo } from "../types/todo";
+import { createTodo } from "../services/todoService";
 
 interface Props {
   onAdd: (todo: Todo) => void;
@@ -8,11 +9,20 @@ interface Props {
 const AddTodo: React.FC<Props> = ({ onAdd }) => {
   const [newTodo, setNewTodo] = useState({ title: "", description: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newTodo.title.trim()) {
-      onAdd(newTodo);
-      setNewTodo({ title: "", description: "" });
+      try {
+        const createdTodo = await createTodo({
+          title: newTodo.title,
+          description: newTodo.description,
+          isCompleted: false,
+        });
+        onAdd(createdTodo);
+        setNewTodo({ title: "", description: "" });
+      } catch (error) {
+        console.error("Error creating todo:", error);
+      }
     }
   };
 

@@ -46,6 +46,7 @@ const TodoPage: React.FC = () => {
   const handleToggleComplete = async (todo: Todo) => {
     try {
       const updatedTodo = await updateTodo(todo._id!, { isCompleted: !todo.isCompleted });
+      console.log("Updated Todo:", updatedTodo); // Debug log
       setTodos((prevTodos) => prevTodos.map((t) => (t._id === todo._id ? updatedTodo : t)));
     } catch (error) {
       console.error("Error updating todo:", error);

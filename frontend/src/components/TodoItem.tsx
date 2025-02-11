@@ -1,5 +1,6 @@
 import React from "react";
 import { Todo } from "../types/todo";
+import { deleteTodo, updateTodo } from "../services/todoService";
 
 interface Props {
   todo: Todo;
@@ -8,6 +9,26 @@ interface Props {
 }
 
 const TodoItem: React.FC<Props> = ({ todo, onDelete, onToggleComplete }) => {
+  const handleDelete = async () => {
+    try {
+      await deleteTodo(todo._id!);
+      onDelete(todo._id!);
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+    }
+  };
+
+  const handleToggleComplete = async () => {
+    try {
+      const updatedTodo = { ...todo, isCompleted: !todo.isCompleted };
+      console.log("Updating todo:", updatedTodo); // Debug log
+      await updateTodo(todo._id!, updatedTodo);
+      onToggleComplete(updatedTodo);
+    } catch (error) {
+      console.error("Error updating todo:", error);
+    }
+  };
+
   return (
     <div className="card my-2">
       <div className="card-body d-flex justify-content-between align-items-center">
@@ -19,13 +40,13 @@ const TodoItem: React.FC<Props> = ({ todo, onDelete, onToggleComplete }) => {
         </div>
         <div className="btn-group">
           <button
-            onClick={() => onToggleComplete(todo)}
+            onClick={handleToggleComplete}
             className="btn btn-sm btn-secondary"
           >
             {todo.isCompleted ? "Undo" : "Complete"}
           </button>
           <button
-            onClick={() => onDelete(todo._id!)}
+            onClick={handleDelete}
             className="btn btn-sm btn-danger"
           >
             Delete

@@ -41,6 +41,7 @@ export const createTodo = async (todo: Omit<Todo, "_id">): Promise<Todo> => {
 // Update a to-do (now uses Partial<Todo> for flexibility)
 export const updateTodo = async (id: string, todo: Partial<Todo>): Promise<Todo> => {
   try {
+    console.log(`Updating todo with id: ${id}`, todo); // Log to debug
     const response = await axios.put<Todo>(`${API_BASE_URL}/todos/${id}`, todo);
     return response.data;
   } catch (error) {
@@ -48,6 +49,7 @@ export const updateTodo = async (id: string, todo: Partial<Todo>): Promise<Todo>
     throw error;
   }
 };
+
 
 // Delete a to-do
 export const deleteTodo = async (id: string): Promise<void> => {
