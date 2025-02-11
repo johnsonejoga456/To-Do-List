@@ -3,7 +3,7 @@ import { fetchTodos, createTodo, deleteTodo, updateTodo } from "../services/todo
 import { Todo } from "../types/todo";
 import AddTodo from "../components/AddTodo";
 import TodoItem from "../components/TodoItem";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const TodoPage: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -43,11 +43,10 @@ const TodoPage: React.FC = () => {
     }
   };
 
-  const handleToggleComplete = async (todo: Todo) => {
+  const handleUpdateTodo = async (id: string, updatedFields: Partial<Todo>) => {
     try {
-      const updatedTodo = await updateTodo(todo._id!, { isCompleted: !todo.isCompleted });
-      console.log("Updated Todo:", updatedTodo); // Debug log
-      setTodos((prevTodos) => prevTodos.map((t) => (t._id === todo._id ? updatedTodo : t)));
+      const updatedTodo = await updateTodo(id, updatedFields);
+      setTodos((prevTodos) => prevTodos.map((t) => (t._id === id ? updatedTodo : t)));
     } catch (error) {
       console.error("Error updating todo:", error);
     }
@@ -57,14 +56,14 @@ const TodoPage: React.FC = () => {
     <div className="container py-4">
       <h1 className="text-center mb-4">To-Do List</h1>
       <AddTodo onAdd={handleAddTodo} />
-      
+
       {loading ? (
         <p className="text-center text-muted">Loading...</p>
       ) : (
         <div className="mt-4">
           {todos.length > 0 ? (
             todos.map((todo) => (
-              <TodoItem key={todo._id} todo={todo} onDelete={handleDeleteTodo} onToggleComplete={handleToggleComplete} />
+              <TodoItem key={todo._id} todo={todo} onDelete={handleDeleteTodo} onUpdate={handleUpdateTodo} />
             ))
           ) : (
             <p className="text-center text-muted">No to-dos yet. Add one!</p>

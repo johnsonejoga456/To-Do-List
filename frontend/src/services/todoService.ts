@@ -2,7 +2,6 @@ import axios from "axios";
 import API_BASE_URL from "../config/api";
 import { Todo } from "../types/todo";
 
-// Ensure 'Todo' is explicitly exported
 export type { Todo };
 
 // Fetch all to-dos
@@ -38,18 +37,17 @@ export const createTodo = async (todo: Omit<Todo, "_id">): Promise<Todo> => {
   }
 };
 
-// Update a to-do (now uses Partial<Todo> for flexibility)
-export const updateTodo = async (id: string, todo: Partial<Todo>): Promise<Todo> => {
+// Update a to-do (supports partial updates)
+export const updateTodo = async (id: string, updatedFields: Partial<Todo>): Promise<Todo> => {
   try {
-    console.log(`Updating todo with id: ${id}`, todo); // Log to debug
-    const response = await axios.put<Todo>(`${API_BASE_URL}/todos/${id}`, todo);
+    console.log(`Updating todo with id: ${id}`, updatedFields); // Debugging log
+    const response = await axios.put<Todo>(`${API_BASE_URL}/todos/${id}`, updatedFields);
     return response.data;
   } catch (error) {
     console.error("Error updating todo:", error);
     throw error;
   }
 };
-
 
 // Delete a to-do
 export const deleteTodo = async (id: string): Promise<void> => {

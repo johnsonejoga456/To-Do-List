@@ -13,12 +13,13 @@ const AddTodo: React.FC<Props> = ({ onAdd }) => {
     e.preventDefault();
     if (newTodo.title.trim()) {
       try {
-        const createdTodo = await createTodo({
+        const createdTodo: Todo = await createTodo({
           title: newTodo.title,
           description: newTodo.description,
           isCompleted: false,
         });
-        onAdd(createdTodo);
+
+        onAdd({ ...createdTodo, _id: createdTodo._id ?? "" }); // Ensure `_id` exists
         setNewTodo({ title: "", description: "" });
       } catch (error) {
         console.error("Error creating todo:", error);
