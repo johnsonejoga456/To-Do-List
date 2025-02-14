@@ -1,43 +1,32 @@
-Here's a well-structured **README.md** file for your **To-Do List Manager** project.
+To-Do List Manager**  
 
----
+A full-stack To-Do List Manager built with Next.js (React), Node.js, Express, MongoDB, and TypeScript. This application allows users to manage tasks efficiently with CRUD operations, real-time updates, and a user-friendly interface.
 
-# **📌 To-Do List Manager**  
+ Features
+✅ Task Management – Create, update, and delete to-dos  
+✅ Mark Completion – Toggle task completion status  
+✅ Real-Time Updates – UI updates immediately after changes  
+✅ Responsive Design – Fully optimized for desktop & mobile  
+✅ TypeScript Support – Strict type safety in frontend & backend  
+✅ REST API – Well-structured backend for easy integration  
+✅ Database Support – MongoDB for data persistence  
 
-A **full-stack** To-Do List Manager built with **Next.js (React), Node.js, Express, MongoDB, and TypeScript**. This application allows users to manage tasks efficiently with **CRUD operations**, **real-time updates**, and a **user-friendly interface**.
-
----
-
-## **🚀 Features**
-✅ **Task Management** – Create, update, and delete to-dos  
-✅ **Mark Completion** – Toggle task completion status  
-✅ **Real-Time Updates** – UI updates immediately after changes  
-✅ **Responsive Design** – Fully optimized for desktop & mobile  
-✅ **TypeScript Support** – Strict type safety in frontend & backend  
-✅ **REST API** – Well-structured backend for easy integration  
-✅ **Database Support** – MongoDB for data persistence  
-
----
-
-## **🛠️ Tech Stack**
-### **Frontend (Next.js + TypeScript)**
-- React + Next.js
+Tech Stack
+Frontend (TypeScript)
 - TypeScript
 - Tailwind CSS
 - Axios (for API calls)
 - React Hooks
 
-### **Backend (Node.js + Express + MongoDB)**
+Backend (Node.js + Express + MongoDB)
 - Node.js
 - Express.js
 - MongoDB + Mongoose
 - TypeScript
 - Firebase (for authentication)
 - CORS + dotenv
-
----
-
-## **📂 Project Structure**
+  
+📂 Project Structure
 ```
 to-do-list/
 ├── backend/               # Backend API (Express + MongoDB)
