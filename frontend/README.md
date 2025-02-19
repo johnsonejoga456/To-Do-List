@@ -28,14 +28,14 @@ Backend (Node.js + Express + MongoDB)
   
 
 
-## ** Installation**
-### **1️⃣ Clone the Repository**
+## Installation
+###1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/your-username/to-do-list.git
 cd to-do-list
 ```
 
-### **2️⃣ Backend Setup**
+### 2️⃣ Backend Setup
 ```bash
 cd backend
 npm install
@@ -47,7 +47,7 @@ npm run dev  # Runs server on http://localhost:5000
   PORT=5000
   ```
 
-### **3️⃣ Frontend Setup**
+### 3️⃣ Frontend Setup
 ```bash
 cd frontend
 npm install
